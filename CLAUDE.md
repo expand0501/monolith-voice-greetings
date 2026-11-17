@@ -51,5 +51,5 @@ Shipped readmes: `src/README_EN.txt`, `src/README_RU.txt` (cp1251). Started 2026
   "RU_UA_Voice_Profiles" touch killer / stalker_4 only, not in our list).
 
 ## Open items
-- 0.1.0: not tested in game yet. Not published; repository not created on GitHub (ask Expand: public?).
+- 0.1.0: Expand tested the build in game (2026-11-17, "Build tested"); released as v0.1.0 with Dialog Greetings 1.0.5. GitHub: `expand0501/monolith-voice-greetings` (public, created 2026-11-17, released v0.1.0).
 - Needs Dialog Greetings 1.0.5 for dialog greetings of `monolith_1` NPCs.

@@ -1,6 +1,6 @@
 {
   "name": "Monolith Voice Greetings",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "zip": "Monolith_Voice_Greetings_by_Expand_{version}",
   "versionFiles": [
     "src/README_EN.txt",

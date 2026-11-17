@@ -1,4 +1,4 @@
-Monolith Voice Greetings 0.1.0 by Expand
+Monolith Voice Greetings 1.0.0 by Expand
 Monolith stalkers greet you with the greeting lines of other factions.
 For S.T.A.L.K.E.R. Anomaly / G.A.M.M.A.
 
@@ -49,6 +49,7 @@ No per-frame work: one check when a stalker starts a voice line; the borrowed vo
 loaded for a stalker only when he first greets you.
 
 VERSION HISTORY
+1.0.0 - first public release (no code changes).
 0.1.0 - first version.
 
 CREDITS

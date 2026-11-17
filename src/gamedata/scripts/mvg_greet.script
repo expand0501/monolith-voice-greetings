@@ -1,4 +1,4 @@
--- Monolith Voice Greetings 0.1.0 by Expand
+-- Monolith Voice Greetings 1.0.0 by Expand
 -- Monolith stalkers greet you with the greeting lines of other factions (chosen in MCM), because every
 -- Monolith greeting file is silent (vanilla monolith_3 and Dux's monolith_1 / monolith_2 are a 0.2 s
 -- placeholder).

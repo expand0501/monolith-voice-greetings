@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="windows-1251"?>
-<!-- Monolith Voice Greetings 0.1.0 by Expand -->
+<!-- Monolith Voice Greetings 1.0.0 by Expand -->
 <string_table>
 	<string id="ui_mcm_menu_mvg">
 		<text>Приветствия Монолита</text>

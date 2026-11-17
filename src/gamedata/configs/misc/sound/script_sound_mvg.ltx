@@ -1,0 +1,296 @@
+; Monolith Voice Greetings by Expand
+; Greeting lines of other factions for Monolith stalkers (whose own greeting files are silent).
+; Played by mvg_greet.script. avail_communities names no real community, so no NPC gets these
+; sounds at spawn: the script adds them to one Monolith stalker only when he greets you.
+; mvg_<voice>_<1|3>     = walking past (same settings as vanilla [meet_hello])
+; mvg_<voice>_<1|3>_dlg = dialog opens with Dialog Greetings (same settings as its [dlg_greet_hello])
+; _1 = voice without a mask, _3 = the same lines through a gas mask (vanilla convention).
+; Included automatically by misc\sound\script_sound.ltx (#include "script_sound_*.ltx").
+
+; Sin, no mask
+[mvg_greh_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\greh_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_greh_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\greh_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Sin, mask
+[mvg_greh_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\greh_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_greh_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\greh_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Military, no mask
+[mvg_military_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\military_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_military_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\military_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Military, mask
+[mvg_military_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\military_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_military_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\military_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Loners, no mask
+[mvg_stalker_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\stalker_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_stalker_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\stalker_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Loners, mask
+[mvg_stalker_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\stalker_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_stalker_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\stalker_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Clear Sky, no mask
+[mvg_csky_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\csky_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_csky_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\csky_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Clear Sky, mask
+[mvg_csky_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\csky_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_csky_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\csky_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Duty, no mask
+[mvg_dolg_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\dolg_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_dolg_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\dolg_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Duty, mask
+[mvg_dolg_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\dolg_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_dolg_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\dolg_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Freedom, no mask
+[mvg_freedom_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\freedom_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_freedom_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\freedom_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Freedom, mask
+[mvg_freedom_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\freedom_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_freedom_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\freedom_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Bandits, no mask
+[mvg_bandit_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\bandit_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_bandit_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\bandit_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Bandits, mask
+[mvg_bandit_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\bandit_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_bandit_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\bandit_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Ecologists, no mask
+[mvg_ecolog_1]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\ecolog_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_ecolog_1_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\ecolog_1\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true
+
+; Ecologists, mask
+[mvg_ecolog_3]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\ecolog_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 7,10,100
+
+[mvg_ecolog_3_dlg]
+type = npc
+avail_communities = mvg_on_demand
+npc_prefix = false
+path = human\ecolog_3\states\meet\meet_hello_
+shuffle = rnd
+idle = 0,0,100
+play_always = true

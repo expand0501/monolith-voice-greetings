@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!-- Monolith Voice Greetings 0.1.0 by Expand -->
+<string_table>
+	<string id="ui_mcm_menu_mvg">
+		<text>Monolith Voice Greetings</text>
+	</string>
+	<string id="ui_mcm_mvg_title">
+		<text>Monolith Voice Greetings</text>
+	</string>
+	<string id="ui_mcm_mvg_credits">
+		<text>Monolith Voice Greetings by Expand. Monolith's own greeting lines are silent, so Monolith stalkers greet you with the greeting lines of the factions you choose below.</text>
+	</string>
+	<string id="ui_mcm_mvg_enabled">
+		<text>Monolith greetings</text>
+	</string>
+	<string id="ui_mcm_mvg_enabled_desc">
+		<text>Friendly Monolith stalkers say a greeting line of another faction when they greet you. Without Dialog Greetings they greet you like any stalker when you walk up to them; with Dialog Greetings they follow its settings (by default only when you open a dialog).</text>
+	</string>
+	<string id="ui_mcm_mvg_hdr_factions">
+		<text>Borrow greeting lines from</text>
+	</string>
+	<string id="ui_mcm_mvg_factions_note">
+		<text>Each Monolith stalker always uses the voice of one of the factions you turn on (which one depends on the stalker). Masked Monolith speak through their mask. With no faction on, Monolith stay silent.</text>
+	</string>
+	<string id="ui_mcm_mvg_greh">
+		<text>Sin</text>
+	</string>
+	<string id="ui_mcm_mvg_greh_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Sin (voice sets greh_1 / greh_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_military">
+		<text>Military</text>
+	</string>
+	<string id="ui_mcm_mvg_military_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Military (voice sets military_1 / military_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_stalker">
+		<text>Loners</text>
+	</string>
+	<string id="ui_mcm_mvg_stalker_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Loners (voice sets stalker_1 / stalker_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_csky">
+		<text>Clear Sky</text>
+	</string>
+	<string id="ui_mcm_mvg_csky_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Clear Sky (voice sets csky_1 / csky_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_dolg">
+		<text>Duty</text>
+	</string>
+	<string id="ui_mcm_mvg_dolg_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Duty (voice sets dolg_1 / dolg_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_freedom">
+		<text>Freedom</text>
+	</string>
+	<string id="ui_mcm_mvg_freedom_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Freedom (voice sets freedom_1 / freedom_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_bandit">
+		<text>Bandits</text>
+	</string>
+	<string id="ui_mcm_mvg_bandit_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Bandits (voice sets bandit_1 / bandit_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_ecolog">
+		<text>Ecologists</text>
+	</string>
+	<string id="ui_mcm_mvg_ecolog_desc">
+		<text>Monolith stalkers can greet you with the greeting lines of Ecologists (voice sets ecolog_1 / ecolog_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_hdr_misc">
+		<text>Other</text>
+	</string>
+	<string id="ui_mcm_mvg_debug">
+		<text>Debug log</text>
+	</string>
+	<string id="ui_mcm_mvg_debug_desc">
+		<text>Writes [MonolithVoiceGreetings] lines to the game log (xray_*.log): which line replaced a Monolith greeting and which factions are on. Only for bug reports.</text>
+	</string>
+</string_table>

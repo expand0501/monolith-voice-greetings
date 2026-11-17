@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!-- Monolith Voice Greetings 0.1.0 by Expand -->
+<string_table>
+	<string id="ui_mcm_menu_mvg">
+		<text>Приветствия Монолита</text>
+	</string>
+	<string id="ui_mcm_mvg_title">
+		<text>Приветствия Монолита</text>
+	</string>
+	<string id="ui_mcm_mvg_credits">
+		<text>Приветствия Монолита от Expand. Собственные приветствия Монолита в игре беззвучны, поэтому монолитовцы здороваются с вами фразами группировок, выбранных ниже.</text>
+	</string>
+	<string id="ui_mcm_mvg_enabled">
+		<text>Приветствия Монолита</text>
+	</string>
+	<string id="ui_mcm_mvg_enabled_desc">
+		<text>Дружественные монолитовцы, приветствуя вас, произносят фразу другой группировки. Без мода Dialog Greetings они здороваются, когда вы подходите к ним, как обычные сталкеры; с Dialog Greetings - по его настройкам (по умолчанию только при открытии диалога).</text>
+	</string>
+	<string id="ui_mcm_mvg_hdr_factions">
+		<text>Чьи приветствия использовать</text>
+	</string>
+	<string id="ui_mcm_mvg_factions_note">
+		<text>Каждый монолитовец всегда говорит голосом одной из включенных группировок (какой именно - зависит от сталкера). Монолитовцы в масках говорят через маску. Если не включена ни одна группировка, Монолит молчит.</text>
+	</string>
+	<string id="ui_mcm_mvg_greh">
+		<text>Грех</text>
+	</string>
+	<string id="ui_mcm_mvg_greh_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Грех (голоса greh_1 / greh_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_military">
+		<text>Военные</text>
+	</string>
+	<string id="ui_mcm_mvg_military_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Военные (голоса military_1 / military_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_stalker">
+		<text>Одиночки</text>
+	</string>
+	<string id="ui_mcm_mvg_stalker_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Одиночки (голоса stalker_1 / stalker_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_csky">
+		<text>Чистое Небо</text>
+	</string>
+	<string id="ui_mcm_mvg_csky_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Чистое Небо (голоса csky_1 / csky_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_dolg">
+		<text>Долг</text>
+	</string>
+	<string id="ui_mcm_mvg_dolg_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Долг (голоса dolg_1 / dolg_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_freedom">
+		<text>Свобода</text>
+	</string>
+	<string id="ui_mcm_mvg_freedom_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Свобода (голоса freedom_1 / freedom_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_bandit">
+		<text>Бандиты</text>
+	</string>
+	<string id="ui_mcm_mvg_bandit_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Бандиты (голоса bandit_1 / bandit_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_ecolog">
+		<text>Экологи</text>
+	</string>
+	<string id="ui_mcm_mvg_ecolog_desc">
+		<text>Монолитовцы могут здороваться фразами группировки Экологи (голоса ecolog_1 / ecolog_3).</text>
+	</string>
+	<string id="ui_mcm_mvg_hdr_misc">
+		<text>Прочее</text>
+	</string>
+	<string id="ui_mcm_mvg_debug">
+		<text>Журнал отладки</text>
+	</string>
+	<string id="ui_mcm_mvg_debug_desc">
+		<text>Пишет строки [MonolithVoiceGreetings] в лог игры (xray_*.log): какой фразой заменено приветствие монолитовца и какие группировки включены. Только для отчетов об ошибках.</text>
+	</string>
+</string_table>

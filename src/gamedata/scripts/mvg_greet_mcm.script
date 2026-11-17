@@ -1,0 +1,25 @@
+-- MCM menu for Monolith Voice Greetings by Expand
+-- Defaults must match DEFAULTS in mvg_greet.script (used when MCM is not installed).
+function on_mcm_load()
+	return {
+		id = "mvg", sh = true, gr = {
+			{ id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_mvg_title", size = {512, 50}, spacing = 20 },
+			{ id = "credits", type = "desc", text = "ui_mcm_mvg_credits" },
+			{ id = "enabled", type = "check", val = 1, def = true },
+
+			{ id = "hdr_factions", type = "title", text = "ui_mcm_mvg_hdr_factions", align = "l", clr = {255, 200, 200, 200} },
+			{ id = "factions_note", type = "desc", text = "ui_mcm_mvg_factions_note" },
+			{ id = "greh", type = "check", val = 1, def = true },
+			{ id = "military", type = "check", val = 1, def = true },
+			{ id = "stalker", type = "check", val = 1, def = false },
+			{ id = "csky", type = "check", val = 1, def = false },
+			{ id = "dolg", type = "check", val = 1, def = false },
+			{ id = "freedom", type = "check", val = 1, def = false },
+			{ id = "bandit", type = "check", val = 1, def = false },
+			{ id = "ecolog", type = "check", val = 1, def = false },
+
+			{ id = "hdr_misc", type = "title", text = "ui_mcm_mvg_hdr_misc", align = "l", clr = {255, 200, 200, 200} },
+			{ id = "debug", type = "check", val = 1, def = false },
+		}
+	}
+end

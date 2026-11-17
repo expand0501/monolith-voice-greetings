@@ -1,0 +1,273 @@
+-- Monolith Voice Greetings 0.1.0 by Expand
+-- Monolith stalkers greet you with the greeting lines of other factions (chosen in MCM), because every
+-- Monolith greeting file is silent (vanilla monolith_3 and Dux's monolith_1 / monolith_2 are a 0.2 s
+-- placeholder).
+--
+-- How it works
+--  * Which NPCs: those whose voice set is monolith_N (npc:sound_prefix()). An NPC with any other voice
+--    keeps his own greeting. Voice _3 (gas mask) borrows the masked _3 lines of a faction, every other
+--    Monolith voice borrows the clear _1 lines, like vanilla pairs voices with outfits.
+--  * Which faction: one of the factions enabled in MCM, picked from the NPC id, so the same stalker always
+--    uses the same voice (until the faction list is changed).
+--  * Walking past (vanilla): xr_meet plays the theme meet_hello through xr_sound.set_sound_play. We wrap
+--    set_sound_play and swap meet_hello for our theme mvg_<voice>_<1|3> (same settings as meet_hello).
+--    When Dialog Greetings mutes walking-past greetings, meet_hello is left alone so it stays muted.
+--  * Dialog opens (only with Dialog Greetings 1.0.5+): we register a greeting provider; Dialog Greetings
+--    runs all its own checks and settings, then plays our mvg_<voice>_<1|3>_dlg theme. Older Dialog
+--    Greetings play their own theme dlg_greet_hello for monolith_3 NPCs: we swap that one too.
+--  * Our themes (configs\misc\sound\script_sound_mvg.ltx) name no real community, so no NPC loads them at
+--    spawn. We add one theme to one NPC when he first needs it (sound_theme's own init_npc) and forget it
+--    when he goes offline, because the engine object and its sounds are gone then.
+--  * No per-frame work: one string compare per NPC voice line, the rest only when a Monolith greets.
+--  * Nothing is saved.
+
+local sformat = string.format
+local smatch = string.match
+
+local TAG = "[MonolithVoiceGreetings]"
+
+-- factions that can lend their greeting lines: MCM key = voice set prefix (all have _1 and _3 in vanilla)
+local FACTIONS = { "greh", "military", "stalker", "csky", "dolg", "freedom", "bandit", "ecolog" }
+
+-- settings changed by MCM (mvg_greet_mcm.script); these are the defaults without MCM
+local DEFAULTS = {
+	enabled  = true,
+	greh     = true,    -- Sin
+	military = true,
+	stalker  = false,   -- Loners
+	csky     = false,   -- Clear Sky
+	dolg     = false,   -- Duty
+	freedom  = false,
+	bandit   = false,
+	ecolog   = false,   -- Ecologists
+	debug    = false,
+}
+
+local ENABLED = DEFAULTS.enabled
+local DEBUG   = DEFAULTS.debug
+local pool    = {}           -- enabled faction keys, in FACTIONS order
+
+-- theme names, built once: THEMES[faction][mask][dialog] (mask "1"/"3", dialog true/false)
+local THEMES = {}
+local ALL_THEMES = {}
+for i = 1, #FACTIONS do
+	local f = FACTIONS[i]
+	THEMES[f] = {}
+	for _, m in ipairs({ "1", "3" }) do
+		local walk = "mvg_" .. f .. "_" .. m
+		local dlg = walk .. "_dlg"
+		THEMES[f][m] = { [false] = walk, [true] = dlg }
+		ALL_THEMES[#ALL_THEMES+1] = walk
+		ALL_THEMES[#ALL_THEMES+1] = dlg
+	end
+end
+
+local loaded = {}                -- npc id -> { [theme name] = true } themes added to this NPC while online
+local orig_set_sound_play        -- xr_sound.set_sound_play before our wrapper; nil = not installed
+local provider_added = false
+local missing_logged = {}        -- theme name -> true once "not loaded" was logged
+
+local function dbg(fmt, ...)
+	if DEBUG then
+		printf("%s %s", TAG, sformat(fmt, ...))
+	end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Settings
+---------------------------------------------------------------------------------------------------
+local function mcm(key)
+	local v = ui_mcm and ui_mcm.get and ui_mcm.get("mvg/" .. key)
+	if v == nil then return DEFAULTS[key] end
+	return v
+end
+
+local function load_settings()
+	ENABLED = mcm("enabled") and true or false
+	DEBUG   = mcm("debug") and true or false
+	local p = {}
+	for i = 1, #FACTIONS do
+		local f = FACTIONS[i]
+		if mcm(f) then p[#p+1] = f end
+	end
+	pool = p
+end
+
+---------------------------------------------------------------------------------------------------
+-- Choosing and loading the borrowed line
+---------------------------------------------------------------------------------------------------
+-- Adds the theme's sounds to npc if not done since he came online. Returns true when he can play it.
+local function ensure_loaded(npc, npc_id, name)
+	local have = loaded[npc_id]
+	if have and have[name] then return true end
+	local themes = sound_theme and sound_theme.theme
+	local theme = themes and themes[name]
+	if not (theme and theme.init_npc) then
+		if not missing_logged[name] then
+			missing_logged[name] = true
+			printf("%s sound theme [%s] is not loaded (configs\\misc\\sound\\script_sound_mvg.ltx missing?)", TAG, name)
+		end
+		return false
+	end
+	-- init_npc (npc_prefix = false) sets the NPC's sound prefix to "characters_voice\" and returns
+	-- without restoring it when the files are missing, which would break all his other voice lines
+	local prefix = npc:sound_prefix()
+	theme:init_npc(npc)
+	if prefix and npc:sound_prefix() ~= prefix then
+		npc:sound_prefix(prefix)
+	end
+	if not (theme.npc and theme.npc[npc_id]) then
+		-- the voice files of that faction are missing (removed by another mod?)
+		dbg("no voice files for [%s] (npc %s)", name, npc_id)
+		return false
+	end
+	if not have then
+		have = {}
+		loaded[npc_id] = have
+	end
+	have[name] = true
+	return true
+end
+
+-- Theme npc should play instead of his own (silent) greeting, or nil to leave him alone.
+local function borrowed_theme(npc, npc_id, dialog)
+	local n = #pool
+	if n == 0 then return nil end
+	local prefix = npc:sound_prefix()
+	local voice = prefix and smatch(prefix, "monolith_(%d)")
+	if not voice then return nil end
+	local mask = (voice == "3") and "3" or "1"
+	local faction = pool[npc_id % n + 1]
+	local name = THEMES[faction][mask][dialog]
+	if not ensure_loaded(npc, npc_id, name) then return nil end
+	return name
+end
+
+-- Forgets the themes added to an NPC that goes offline (his engine sounds are gone with the object).
+local function unload(npc_id)
+	local have = loaded[npc_id]
+	if not have then return end
+	loaded[npc_id] = nil
+	local themes = sound_theme and sound_theme.theme
+	if not themes then return end
+	for name in pairs(have) do
+		local theme = themes[name]
+		if theme then
+			if theme.npc then theme.npc[npc_id] = nil end
+			if theme.sound_path then theme.sound_path[npc_id] = nil end
+		end
+	end
+end
+
+local function unload_all()
+	for npc_id in pairs(loaded) do
+		unload(npc_id)
+	end
+	-- also entries left from before a save load (scripts are not reloaded)
+	local themes = sound_theme and sound_theme.theme
+	if themes then
+		for i = 1, #ALL_THEMES do
+			local theme = themes[ALL_THEMES[i]]
+			if theme then
+				theme.npc = {}
+				theme.sound_path = {}
+			end
+		end
+	end
+	loaded = {}
+end
+
+---------------------------------------------------------------------------------------------------
+-- Dialog Greetings integration
+---------------------------------------------------------------------------------------------------
+-- true when Dialog Greetings is installed and mutes walking-past greetings
+local function walk_hello_muted()
+	local dg = dlg_greet
+	if not dg then return false end
+	if dg.walk_hello_muted then
+		return dg.walk_hello_muted() and true or false
+	end
+	-- Dialog Greetings before 1.0.5: read its MCM value (default on)
+	local v = ui_mcm and ui_mcm.get and ui_mcm.get("dlg_greet/mute_hello")
+	if v == nil then return true end
+	return v and true or false
+end
+
+-- called by Dialog Greetings 1.0.5+ when a dialog opens, after its own checks
+local function dialog_provider(npc, npc_id)
+	if not (ENABLED and npc and npc_id) then return nil end
+	local name = borrowed_theme(npc, npc_id, true)
+	if name then dbg("npc %s (%s) greets in dialog with %s", npc_id, npc:name(), name) end
+	return name
+end
+
+local function add_provider()
+	if provider_added then return end
+	local dg = dlg_greet
+	if dg and dg.add_greeting_provider then
+		dg.add_greeting_provider(dialog_provider)
+		provider_added = true
+	end
+end
+
+---------------------------------------------------------------------------------------------------
+-- Greeting sounds: wrapper for xr_sound.set_sound_play
+---------------------------------------------------------------------------------------------------
+local function set_sound_play_swapped(npc_id, sound, ...)
+	if ENABLED and npc_id and (sound == "meet_hello" or sound == "dlg_greet_hello") then
+		-- meet_hello: walking past; dlg_greet_hello: dialog greeting of Dialog Greetings before 1.0.5
+		local dialog = (sound == "dlg_greet_hello")
+		if dialog or not walk_hello_muted() then
+			local st = db.storage[npc_id]
+			local npc = st and st.object
+			local name = npc and borrowed_theme(npc, npc_id, dialog)
+			if name then
+				dbg("npc %s (%s): %s -> %s", npc_id, npc:name(), sound, name)
+				sound = name
+			end
+		end
+	end
+	return orig_set_sound_play(npc_id, sound, ...)
+end
+
+local function install_wrapper()
+	if orig_set_sound_play then return end   -- already installed in this session
+	local xs = xr_sound
+	local f = xs and xs.set_sound_play
+	if type(f) ~= "function" then
+		printf("%s xr_sound.set_sound_play not found, Monolith walking-past greetings are off", TAG)
+		return
+	end
+	orig_set_sound_play = f
+	xs.set_sound_play = set_sound_play_swapped
+end
+
+---------------------------------------------------------------------------------------------------
+-- Callbacks
+---------------------------------------------------------------------------------------------------
+local function on_npc_net_destroy(npc)
+	local id = npc and npc:id()
+	if id then unload(id) end
+end
+
+local function on_first_update()
+	unload_all()
+	load_settings()
+	add_provider()
+	dbg("factions: %s", #pool > 0 and table.concat(pool, ", ") or "none")
+end
+
+local function on_option_change()
+	load_settings()
+	dbg("factions: %s", #pool > 0 and table.concat(pool, ", ") or "none")
+end
+
+function on_game_start()
+	load_settings()
+	install_wrapper()
+	add_provider()
+	RegisterScriptCallback("actor_on_first_update", on_first_update)
+	RegisterScriptCallback("actor_on_net_destroy", unload_all)
+	RegisterScriptCallback("npc_on_net_destroy", on_npc_net_destroy)
+	RegisterScriptCallback("on_option_change", on_option_change)
+end
